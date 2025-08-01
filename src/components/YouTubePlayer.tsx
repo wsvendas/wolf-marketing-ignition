@@ -17,51 +17,77 @@ export const YouTubePlayer = ({ onVideoEnd }: YouTubePlayerProps) => {
   const [isAPIReady, setIsAPIReady] = useState(false);
 
   useEffect(() => {
-    // Carregar a API do YouTube
-    if (!window.YT) {
-      const tag = document.createElement('script');
-      tag.src = 'https://www.youtube.com/iframe_api';
-      const firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+    console.log('Iniciando carregamento da API do YouTube');
+    
+    // Verificar se a API já está carregada
+    if (window.YT && window.YT.Player) {
+      console.log('API do YouTube já está carregada');
+      setIsAPIReady(true);
+      return;
     }
 
-    // Callback para quando a API estiver pronta
-    window.onYouTubeIframeAPIReady = () => {
-      setIsAPIReady(true);
-    };
-
-    if (window.YT && window.YT.Player) {
-      setIsAPIReady(true);
+    // Carregar a API do YouTube se não estiver carregada
+    if (!window.YT) {
+      console.log('Carregando script da API do YouTube');
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      tag.async = true;
+      
+      // Callback para quando a API estiver pronta
+      window.onYouTubeIframeAPIReady = () => {
+        console.log('API do YouTube carregada com sucesso');
+        setIsAPIReady(true);
+      };
+      
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      if (firstScriptTag && firstScriptTag.parentNode) {
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      } else {
+        document.head.appendChild(tag);
+      }
     }
   }, []);
 
   useEffect(() => {
+    console.log('Tentando criar player:', { isAPIReady, hasRef: !!playerRef.current, hasPlayer: !!player });
+    
     if (isAPIReady && playerRef.current && !player) {
-      const newPlayer = new window.YT.Player(playerRef.current, {
-        height: '400',
-        width: '100%',
-        videoId: 'cvnzkIZjwno', // ID do vídeo do YouTube
-        playerVars: {
-          autoplay: 1,
-          controls: 1,
-          rel: 0,
-          showinfo: 0,
-          modestbranding: 1,
-        },
-        events: {
-          onReady: (event: any) => {
-            console.log('Player ready');
+      console.log('Criando novo player do YouTube');
+      try {
+        const newPlayer = new window.YT.Player(playerRef.current, {
+          height: '400',
+          width: '100%',
+          videoId: 'cvnzkIZjwno',
+          playerVars: {
+            autoplay: 0, // Mudando para 0 para evitar problemas de autoplay
+            controls: 1,
+            rel: 0,
+            showinfo: 0,
+            modestbranding: 1,
+            origin: window.location.origin
           },
-          onStateChange: (event: any) => {
-            // 0 = ended, 1 = playing, 2 = paused
-            if (event.data === 0) {
-              console.log('Video ended');
-              onVideoEnd();
+          events: {
+            onReady: (event: any) => {
+              console.log('Player ready', event);
+            },
+            onStateChange: (event: any) => {
+              console.log('Estado do vídeo mudou:', event.data);
+              // 0 = ended, 1 = playing, 2 = paused
+              if (event.data === 0) {
+                console.log('Video ended');
+                onVideoEnd();
+              }
+            },
+            onError: (event: any) => {
+              console.error('Erro no player do YouTube:', event);
             }
           },
-        },
-      });
-      setPlayer(newPlayer);
+        });
+        setPlayer(newPlayer);
+        console.log('Player criado com sucesso');
+      } catch (error) {
+        console.error('Erro ao criar player:', error);
+      }
     }
   }, [isAPIReady, onVideoEnd, player]);
 
