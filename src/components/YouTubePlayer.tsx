@@ -92,9 +92,9 @@ export const YouTubePlayer = ({ onVideoEnd }: YouTubePlayerProps) => {
   }, [isAPIReady, onVideoEnd, player]);
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-4xl mx-auto px-2 sm:px-4">
       <div className="relative aspect-video bg-black rounded-lg overflow-hidden neon-border">
-        <div ref={playerRef} className="w-full h-full" />
+        <div ref={playerRef} className="w-full h-full min-h-[250px] sm:min-h-[350px] md:min-h-[400px]" />
       </div>
     </div>
   );
