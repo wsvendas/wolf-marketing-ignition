@@ -1,18 +1,16 @@
-import wolfPortrait from "@/assets/wolf-portrait-1.jpg";
-import wolfCelebration from "@/assets/wolf-celebration.jpg";
-import wolfSuccess from "@/assets/wolf-success.jpg";
-import wolfMentor from "@/assets/wolf-mentor.jpg";
+import successStage from "@/assets/success-stage.jpg";
+import luxuryMoney from "@/assets/luxury-money.jpg";
+import financialTriumph from "@/assets/financial-triumph.jpg";
+import leadershipPresentation from "@/assets/leadership-presentation.jpg";
 
 const motivationalQuotes = [
-  "O SUCESSO NÃO É SORTE, É ESTRATÉGIA",
-  "TRANSFORME SUA VIDA EM 30 DIAS",
-  "DE ZERO AO PRIMEIRO MILHÃO",
-  "O MARKETING QUE REALMENTE FUNCIONA",
-  "DESPERTE O EMPRESÁRIO EM VOCÊ",
-  "LIBERDADE FINANCEIRA É POSSÍVEL"
+  "DINHEIRO VOANDO, SUCESSO GARANTIDO",
+  "DO PALCO PARA O TOPO DO MUNDO",
+  "LIFESTYLE DE MILIONÁRIO REAL",
+  "APRESENTAÇÕES QUE GERAM FORTUNAS"
 ];
 
-const wolfImages = [wolfPortrait, wolfCelebration, wolfSuccess, wolfMentor];
+const successImages = [successStage, luxuryMoney, financialTriumph, leadershipPresentation];
 
 export const HeroSection = () => {
   return (
@@ -40,9 +38,9 @@ export const HeroSection = () => {
           </p>
         </div>
 
-        {/* Grid de imagens do Wolf com frases */}
+        {/* Grid de imagens de sucesso e lifestyle */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-          {wolfImages.map((image, index) => (
+          {successImages.map((image, index) => (
             <div
               key={index}
               className="relative group transform hover:scale-105 transition-all duration-500"
@@ -50,7 +48,7 @@ export const HeroSection = () => {
               <div className="relative overflow-hidden rounded-xl neon-border bg-card">
                 <img
                   src={image}
-                  alt={`Wolf of Wall Street ${index + 1}`}
+                  alt={`Sucesso e Lifestyle ${index + 1}`}
                   className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
