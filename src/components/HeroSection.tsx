@@ -28,9 +28,9 @@ export const HeroSection = () => {
       <div className="container mx-auto px-4 py-20">
         <div className="text-center mb-16">
           <h1 className="text-6xl md:text-8xl font-bold mb-8 neon-text">
-            MARKETING
+            O SEGREDO ESTÁ
             <br />
-            <span className="text-accent">DIGITAL</span>
+            <span className="text-accent">APÓS O VÍDEO</span>
           </h1>
           <p className="text-2xl md:text-3xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
             O método que já transformou a vida de{" "}

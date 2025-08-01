@@ -40,7 +40,7 @@ export const YouTubePlayer = ({ onVideoEnd }: YouTubePlayerProps) => {
       const newPlayer = new window.YT.Player(playerRef.current, {
         height: '400',
         width: '100%',
-        videoId: 'dQw4w9WgXcQ', // ID do vídeo do YouTube (exemplo)
+        videoId: 'cvnzkIZjwno', // ID do vídeo do YouTube
         playerVars: {
           autoplay: 1,
           controls: 1,
